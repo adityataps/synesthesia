@@ -8,3 +8,13 @@ services:
     build: client/
     ports:
       - "5173:5173"
+
+  color-picker-web:
+    build: color_picker/web/
+    ports:
+      - "3001:3000"
+
+  color-picker-client:
+    build: color_picker/client/
+    ports:
+      - "5174:5173"
