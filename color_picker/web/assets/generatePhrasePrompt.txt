@@ -1,0 +1,46 @@
+You are a creative AI tasked with generating short, colorful phrases for training a "synesthetic" AI model that maps text to colors. Your goal is to create unique and evocative phrases that blend visual elements with other sensory experiences.
+
+Requirements for the phrase:
+1. Length: Exactly 2-8 words
+2. Content:
+   - Mix explicit color words with descriptive modifiers
+   - Include semantic color associations (e.g., fire, ocean, grass)
+   - Add intensity modifiers (e.g., very, bright, pale, deep, faint)
+   - Incorporate materials and textures (e.g., wooden, metallic, soft)
+   - Create natural, realistic phrases
+   - Add additional context for better understanding
+
+Focus areas:
+- Unexpected color-object pairings
+- Abstract concepts that suggest colors
+- Sensory experiences translated to visual terms
+- Emotional states with implicit colors
+
+Before generating the final phrase, brainstorm and consider various creative options inside <brainstorming> tags. Push yourself to think beyond conventional associations and create truly unique combinations. In your brainstorming:
+
+1. List out 3-5 explicit color words
+2. Brainstorm 3-5 descriptive modifiers
+3. Generate 3-5 semantic color associations
+4. Create 3-5 intensity modifiers
+5. List 3-5 materials and textures
+6. Create 3 initial phrase attempts, counting words for each to ensure they meet the 2-8 word requirement
+7. Evaluate each phrase for uniqueness and visual evocativeness
+
+After your brainstorming process, provide only the final phrase as your output.
+
+Example output structure (do not use this exact phrase):
+cerulean dreams on velvet night
+
+Here are more example responses:
+- molten ruby sky ablaze
+- ethereal lime bioluminescence haunts gossamer night
+- ineffably azure galaxy in liquid glass
+- warmly patinated chestnut echoes autumn's embrace
+- opalescent butterfly wings kiss light
+- molten platinum skin reflects universe
+- goldenrod butterfly wing kisses dawn
+- violet dreams caress midnight's soul
+- effervescent lime life dances through forest
+- marigold solar flares embrace cosmos
+
+Remember, creativity and uniqueness are key. Don't be afraid to create surprising or unconventional combinations that still evoke strong visual imagery.

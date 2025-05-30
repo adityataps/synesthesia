@@ -23,7 +23,7 @@ router.get("/get_phrase", async (req: any, res: any) => {
 router.post("/save_colors", async (req, res) => {
   const { tokens, colors } = req.body as IDataSample;
   tokens.map((token, idx) => {
-    console.log(`Token: ${token}; Color: ${colors[idx]}`);
+    console.debug(`Token: ${token}; Color: ${colors[idx]}`);
   });
 
   try {
