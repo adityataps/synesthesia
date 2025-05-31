@@ -6,6 +6,8 @@ const anthropic = new Anthropic({
   apiKey: process.env.ANTHROPIC_API_KEY ?? "",
 });
 const systemPrompt = fs.readFileSync("assets/generatePhrasePrompt.txt", "utf8");
+const answerRegex = /<output>(.*?)<\/output>/;
+
 
 async function generatePhrase(): Promise<string> {
   let response;
@@ -21,28 +23,33 @@ async function generatePhrase(): Promise<string> {
           content: [
             {
               type: "text",
-              text: "Generate a diverse phrase following these patterns. Return only the phrase.",
+              text: "Generate a random colorful phrase.",
             },
           ],
         },
-      ],
+      ],  
     });
   } catch (e) {
-    console.error(
+    console.error( 
       `Could not generate phrase using Anthropic Claude: ${(e as Error).message}`,
     );
   }
 
-  const phrase = response?.content?.[0]?.text;
-  console.debug(`Generated phrase: ${phrase}`);
-  return phrase;
+  const answer = response?.content?.[0]?.text;
+  console.debug(`Generated LLM response: ${JSON.stringify(answer)}`);
+
+  return answer.match(answerRegex)?.[1] ?? "";
 }
 
 async function tokenizePhrase(phrase: string): Promise<string[]> {
   const tokenizer = await AutoTokenizer.from_pretrained(
-    "distilbert-base-uncased",
+    "distilbert-base-uncased", 
   );
-  return tokenizer.tokenize(phrase);
-}
-
+  return tokenizer.tokenize(phrase); 
+} 
+ 
 export { generatePhrase, tokenizePhrase };
+
+generatePhrase().then((phrase) => {
+  console.log(phrase);
+});

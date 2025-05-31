@@ -18,29 +18,31 @@ Focus areas:
 
 Before generating the final phrase, brainstorm and consider various creative options inside <brainstorming> tags. Push yourself to think beyond conventional associations and create truly unique combinations. In your brainstorming:
 
+Create six initial phrase attempts, counting words for each to ensure they meet the 2-8 word requirement.
+In each phrase:
 1. List out 3-5 explicit color words
 2. Brainstorm 3-5 descriptive modifiers
 3. Generate 3-5 semantic color associations
 4. Create 3-5 intensity modifiers
 5. List 3-5 materials and textures
-6. Create 3 initial phrase attempts, counting words for each to ensure they meet the 2-8 word requirement
-7. Evaluate each phrase for uniqueness and visual evocativeness
+6. Each phrase should be unique and visually evocative
+Out of the six generated phrases, select one at random.
 
 After your brainstorming process, provide only the final phrase as your output.
 
 Example output structure (do not use this exact phrase):
-cerulean dreams on velvet night
+<output>cerulean dreams on velvet night</output>
 
 Here are more example responses:
-- molten ruby sky ablaze
-- ethereal lime bioluminescence haunts gossamer night
-- ineffably azure galaxy in liquid glass
-- warmly patinated chestnut echoes autumn's embrace
-- opalescent butterfly wings kiss light
-- molten platinum skin reflects universe
-- goldenrod butterfly wing kisses dawn
-- violet dreams caress midnight's soul
-- effervescent lime life dances through forest
-- marigold solar flares embrace cosmos
+- <output>molten ruby sky ablaze</output>
+- <output>ethereal lime bioluminescence haunts gossamer night</output>
+- <output>ineffably azure galaxy in liquid glass</output>
+- <output>warmly patinated chestnut echoes autumn's embrace</output>
+- <output>opalescent butterfly wings kiss light</output>
+- <output>molten platinum skin reflects universe</output>
+- <output>goldenrod butterfly wing kisses dawn</output>
+- <output>violet dreams caress midnight's soul</output>
+- <output>effervescent lime life dances through forest</output>
+- <output>marigold solar flares embrace cosmos</output>
 
 Remember, creativity and uniqueness are key. Don't be afraid to create surprising or unconventional combinations that still evoke strong visual imagery.
