@@ -1,13 +1,11 @@
 import * as fs from "fs";
 import Anthropic from "@anthropic-ai/sdk";
-import { AutoTokenizer } from "@huggingface/transformers";
 
 const anthropic = new Anthropic({
   apiKey: process.env.ANTHROPIC_API_KEY ?? "",
 });
 const systemPrompt = fs.readFileSync("assets/generatePhrasePrompt.txt", "utf8");
 const answerRegex = /<output>(.*?)<\/output>/;
-
 
 async function generatePhrase(): Promise<string> {
   let response;
@@ -27,29 +25,18 @@ async function generatePhrase(): Promise<string> {
             },
           ],
         },
-      ],  
+      ],
     });
   } catch (e) {
-    console.error( 
+    console.error(
       `Could not generate phrase using Anthropic Claude: ${(e as Error).message}`,
     );
+    throw e; 
   }
 
   const answer = response?.content?.[0]?.text;
   console.debug(`Generated LLM response: ${JSON.stringify(answer)}`);
-
   return answer.match(answerRegex)?.[1] ?? "";
 }
 
-async function tokenizePhrase(phrase: string): Promise<string[]> {
-  const tokenizer = await AutoTokenizer.from_pretrained(
-    "distilbert-base-uncased", 
-  );
-  return tokenizer.tokenize(phrase); 
-} 
- 
-export { generatePhrase, tokenizePhrase };
-
-generatePhrase().then((phrase) => {
-  console.log(phrase);
-});
+export { generatePhrase };

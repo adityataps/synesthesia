@@ -1,11 +1,13 @@
 import { Router } from "express";
-import { generatePhrase, tokenizePhrase } from "./services/llmService";
+import { generatePhrase } from "./services/llmService";
+import { tokenizePhrase } from "./services/transformerService";
 import { IDataSample } from "./types";
 import { saveSampleToDatabase } from "./services/databaseService";
 
 const router = Router();
 
-router.get("/get_phrase", async (req: any, res: any) => {
+router.get("/", (req: any, res: any) => res.send("Server is running."));
+router.get("/tokenized_phrase", async (req: any, res: any) => {
   let phrase;
   let tokens;
 
@@ -20,7 +22,7 @@ router.get("/get_phrase", async (req: any, res: any) => {
   return res.send(tokens);
 });
 
-router.post("/save_colors", async (req, res) => {
+router.post("/save_sample", async (req: any, res: any) => {
   const { tokens, colors } = req.body as IDataSample;
   tokens.map((token, idx) => {
     console.debug(`Token: ${token}; Color: ${colors[idx]}`);
