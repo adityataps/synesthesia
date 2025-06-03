@@ -31,10 +31,15 @@ async function generatePhrase(): Promise<string> {
     console.error(
       `Could not generate phrase using Anthropic Claude: ${(e as Error).message}`,
     );
-    throw e; 
+    throw e;
   }
 
-  const answer = response?.content?.[0]?.text;
+  const resp = response?.content?.[0];
+  if (resp.type !== "text") {
+    throw new Error("Unexpected response type from Anthropic Claude");
+  }
+
+  const answer = resp.text;
   console.debug(`Generated LLM response: ${JSON.stringify(answer)}`);
   return answer.match(answerRegex)?.[1] ?? "";
 }

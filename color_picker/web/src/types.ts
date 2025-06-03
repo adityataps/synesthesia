@@ -5,6 +5,7 @@ export interface iColor {
 }
 
 export interface IDataSample {
+  phrase: string;
   tokens: string[];
   colors: iColor[];
 }

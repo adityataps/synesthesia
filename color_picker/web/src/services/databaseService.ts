@@ -1,5 +1,7 @@
 import { v7 as uuidv7 } from "uuid";
 import { DynamoDBClient, PutItemCommand } from "@aws-sdk/client-dynamodb";
+import { marshall } from "@aws-sdk/util-dynamodb";
+import { iColor } from "../types";
 
 let ddbClient: DynamoDBClient;
 
@@ -17,18 +19,20 @@ async function saveSampleToDatabase({
 }: {
   phrase: string;
   tokens: string[];
-  colors: string[];
+  colors: iColor[];
 }) {
   const documentId = uuidv7();
+  const marshalledItem = marshall({
+    phrase,
+    tokens,
+    colors,
+    id: documentId,
+    timestamp: Date.now(),
+  });
+
   const putItemPayload = {
     TableName: process.env.AWS_DDB_TABLE_NAME ?? "",
-    Item: {
-      Id: { S: documentId },
-      Timestamp: { N: `${Date.now()}` },
-      Phrase: { S: phrase },
-      Tokens: { L: tokens.map((token) => ({ S: token })) },
-      Colors: { L: colors.map((color) => ({ S: color })) },
-    },
+    Item: marshalledItem,
   };
   console.debug(`Saving sample to database: ${JSON.stringify(putItemPayload)}`);
 

@@ -1,0 +1,17 @@
+### API Server health check
+GET localhost:3000/
+
+### Get a randomly generated colorful phrase
+GET localhost:3000/tokenized_phrase
+
+### Save a randomly generated colorful phrase
+POST localhost:3000/save_sample
+Content-Type: application/json
+
+{
+  "phrase": "hello world",
+  "tokens": ["hello", "world"],
+  "colors": [{"R": 123, "G": 42, "B": 232}, {"R": 5, "G": 90, "B": 192}]
+}
+
+###
