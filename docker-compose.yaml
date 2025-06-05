@@ -10,11 +10,11 @@ services:
       - "5173:5173"
 
   color-picker-web:
-    build: color_picker/web/
+    build: colorPicker/web/
     ports:
       - "3001:3000"
 
   color-picker-client:
-    build: color_picker/client/
+    build: colorPicker/client/
     ports:
       - "5174:5173"

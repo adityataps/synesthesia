@@ -4,7 +4,7 @@
   "description": "Quick Express app to build training dataset",
   "main": "index.ts",
   "scripts": {
-    "dev": "tsx watch --env-file=.env index.ts",
+    "dev": "touch .env && tsx watch --env-file=.env index.ts",
     "start": "node --env-file=.env dist/index.js",
     "build": "tsc"
   },
