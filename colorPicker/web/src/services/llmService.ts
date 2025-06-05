@@ -7,6 +7,7 @@ const anthropic = new Anthropic({
 const systemPrompt = fs.readFileSync("assets/generatePhrasePrompt.txt", "utf8");
 const answerRegex = /<output>(.*?)<\/output>/;
 
+// TODO: query for list of phrases and store in external cache to prevent increased costs
 async function generatePhrase(): Promise<string> {
   let response;
   try {

@@ -20,7 +20,7 @@ router.get("/tokenized_phrase", async (req: any, res: any) => {
     return res.sendStatus(500);
   }
 
-  return res.send({phrase, tokens});
+  return res.send({ phrase, tokens });
 });
 
 router.post("/save_sample", async (req: any, res: any) => {
