@@ -1,8 +1,9 @@
 import express from "express";
 import morgan from "morgan";
-import { connect } from "./src/services/databaseService";
+import cors from "cors";
 import { rateLimit } from "express-rate-limit";
 
+import { connect } from "./src/services/databaseService";
 import routes from "./src/routes";
 
 const app = express();
@@ -14,6 +15,7 @@ const limiter = rateLimit({
   legacyHeaders: false, // Disable the `X-RateLimit-*` headers.
 });
 
+app.use(cors());
 app.use(express.json());
 app.use(limiter);
 app.use(morgan("dev"));

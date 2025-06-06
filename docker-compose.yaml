@@ -2,19 +2,35 @@ services:
   web:
     build: web/
     ports:
-    - "3000:3000"
+      - "3000:3000"
 
   client:
     build: client/
     ports:
-      - "5173:5173"
+      - "4173:4173"
 
   color-picker-web:
     build: colorPicker/web/
+    volumes:
+      - ./colorPicker/web:/app:delegated
+      - /app/node_modules
+      - /app/dist
     ports:
       - "3001:3000"
+    environment:
+      - NODE_ENV=development
+    platform: linux/arm64
 
   color-picker-client:
     build: colorPicker/client/
+    volumes:
+      - ./colorPicker/client:/app:delegated
+      - /app/node_modules
+      - /app/.vite
+      - /app/dist
     ports:
+      - "4174:4173"
       - "5174:5173"
+    environment:
+      - NODE_ENV=development
+    platform: linux/arm64
