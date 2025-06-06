@@ -7,10 +7,10 @@ import App from "./App.tsx";
 
 // Create a root component to manage color scheme state
 function Root() {
-  const [colorScheme, setColorScheme] = useState<'light' | 'dark'>('light');
+  const [colorScheme, setColorScheme] = useState<"light" | "dark">("light");
 
   const toggleColorScheme = () => {
-    setColorScheme(current => current === 'light' ? 'dark' : 'light');
+    setColorScheme((current) => (current === "light" ? "dark" : "light"));
   };
 
   return (

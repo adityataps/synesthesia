@@ -1,6 +1,6 @@
 # Color Picker (Web)
 
-Quick Express app to build a training dataset. 
+Quick Express app to build a training dataset.
 
 Instructions to run:
 
