@@ -46,7 +46,8 @@ function App({ toggleColorScheme, colorScheme }: AppProps) {
   const [hoveredTokenIndex, setHoveredTokenIndex] = useState<number | null>(
     null,
   );
-  const [currentColor, setCurrentColor] = useState<string>("#FFFFFF");
+  const [currentColor, setCurrentColor] =
+    useState<string>("rgba(0, 0, 0, 0.1)");
   const [loading, setLoading] = useState(false);
 
   // // Predefined color swatches
@@ -105,8 +106,10 @@ function App({ toggleColorScheme, colorScheme }: AppProps) {
         console.log(data);
         setPhrase(data.phrase);
         setTokens(data.tokens);
-        // Initialize colors array with nulls for each token
-        setColors(new Array(data.tokens.length).fill(null));
+        // Initialize colors array with transparent values (rgba(0, 0, 0, 0)) for each token
+        setColors(
+          new Array(data.tokens.length).fill({ R: 0, G: 0, B: 0, A: 0.01 }),
+        );
         // Reset selected and hovered tokens
         setSelectedTokenIndex(null);
         setHoveredTokenIndex(null);
@@ -136,12 +139,12 @@ function App({ toggleColorScheme, colorScheme }: AppProps) {
 
     setSelectedTokenIndex(index);
 
-    // If this token already has a color, set it as the current color
-    if (colors[index]) {
+    // If this token already has a non-transparent color, set it as the current color
+    if (colors[index] && colors[index]!.A > 0) {
       const { R, G, B, A } = colors[index]!;
       setCurrentColor(`rgba(${R}, ${G}, ${B}, ${A})`);
     } else {
-      setCurrentColor("rgba(255, 255, 255, 1)");
+      setCurrentColor("rgba(255, 255, 255, 0.01)");
     }
   };
 
@@ -158,13 +161,13 @@ function App({ toggleColorScheme, colorScheme }: AppProps) {
       let R = 255,
         G = 255,
         B = 255,
-        A = 1; // Default alpha to 1 (fully opaque)
+        A = 0.01; // Default alpha to 0.01 (fully transparent)
 
       if (rgbaMatch) {
         R = parseInt(rgbaMatch[1]);
         G = parseInt(rgbaMatch[2]);
         B = parseInt(rgbaMatch[3]);
-        A = rgbaMatch[4] ? parseFloat(rgbaMatch[4]) : 1;
+        A = rgbaMatch[4] ? parseFloat(rgbaMatch[4]) : 0.01;
       } else {
         // Handle hex color
         const hex = color.replace("#", "");
@@ -172,7 +175,7 @@ function App({ toggleColorScheme, colorScheme }: AppProps) {
         G = parseInt(hex.substring(2, 4), 16);
         B = parseInt(hex.substring(4, 6), 16);
         // For hex colors, we don't have alpha information, so default to 1
-        A = 1;
+        A = 0.01;
       }
 
       // Update the colors array with the new color
@@ -197,7 +200,13 @@ function App({ toggleColorScheme, colorScheme }: AppProps) {
       const previousColor = colors[selectedTokenIndex - 1];
       if (previousColor) {
         const { R, G, B, A } = previousColor;
+        // Update the text representation of the color
         setCurrentColor(`rgba(${R}, ${G}, ${B}, ${A})`);
+
+        // Update the colors array for the selected token
+        const newColors = [...colors];
+        newColors[selectedTokenIndex] = { R, G, B, A };
+        setColors(newColors);
       }
     }
   };
@@ -208,21 +217,19 @@ function App({ toggleColorScheme, colorScheme }: AppProps) {
       const nextColor = colors[selectedTokenIndex + 1];
       if (nextColor) {
         const { R, G, B, A } = nextColor;
+        // Update the text representation of the color
         setCurrentColor(`rgba(${R}, ${G}, ${B}, ${A})`);
+
+        // Update the colors array for the selected token
+        const newColors = [...colors];
+        newColors[selectedTokenIndex] = { R, G, B, A };
+        setColors(newColors);
       }
     }
   };
 
   // Handle submit
   const handleSubmit = () => {
-    // Check if all tokens have colors
-    const allTokensHaveColors = colors.every((color) => color !== null);
-
-    if (!allTokensHaveColors) {
-      alert("Please select a color for each token before submitting.");
-      return;
-    }
-
     // Prepare data for submission
     const data = {
       phrase,
@@ -241,7 +248,7 @@ function App({ toggleColorScheme, colorScheme }: AppProps) {
       .then((response) => {
         if (response.ok) {
           alert("Colors submitted successfully!");
-          // Fetch a new phrase after successful submission
+          // Fetch a new phrase after a successful submission
           fetchNewPhrase();
         } else {
           alert("Failed to submit colors. Please try again.");
@@ -371,13 +378,11 @@ function App({ toggleColorScheme, colorScheme }: AppProps) {
                     withBorder
                     style={{
                       cursor: "pointer",
-                      backgroundColor: colors[index]
-                        ? `rgba(${colors[index]?.R}, ${colors[index]?.G}, ${colors[index]?.B}, ${colors[index]?.A})`
-                        : undefined,
+                      backgroundColor:
+                        colors[index] && colors[index]?.A > 0
+                          ? `rgba(${colors[index]?.R}, ${colors[index]?.G}, ${colors[index]?.B}, ${colors[index]?.A})`
+                          : undefined,
                       color: "black",
-                      //   colors[index]
-                      // ? getContrastColor(colors[index]!)
-                      // : undefined,
                     }}
                     onClick={(e) => {
                       console.log(`Paper onClick triggered for token ${index}`);
@@ -420,7 +425,8 @@ function App({ toggleColorScheme, colorScheme }: AppProps) {
                           color="blue"
                           disabled={
                             selectedTokenIndex <= 0 ||
-                            !colors[selectedTokenIndex - 1]
+                            !colors[selectedTokenIndex - 1] ||
+                            colors[selectedTokenIndex - 1]?.A === 0
                           }
                           onClick={handleCopyFromPrevious}
                           title="Copy color from previous token"
@@ -433,7 +439,8 @@ function App({ toggleColorScheme, colorScheme }: AppProps) {
                           color="blue"
                           disabled={
                             selectedTokenIndex >= tokens.length - 1 ||
-                            !colors[selectedTokenIndex + 1]
+                            !colors[selectedTokenIndex + 1] ||
+                            colors[selectedTokenIndex + 1]?.A === 0
                           }
                           onClick={handleCopyFromNext}
                           title="Copy color from next token"
@@ -451,7 +458,12 @@ function App({ toggleColorScheme, colorScheme }: AppProps) {
                           // Reset color for this token
                           if (selectedTokenIndex !== null) {
                             const newColors = [...colors];
-                            newColors[selectedTokenIndex] = null;
+                            newColors[selectedTokenIndex] = {
+                              R: 0,
+                              G: 0,
+                              B: 0,
+                              A: 0.01,
+                            };
                             setColors(newColors);
                             setSelectedTokenIndex(null);
                           }
@@ -490,7 +502,11 @@ function App({ toggleColorScheme, colorScheme }: AppProps) {
             <Button
               color="red"
               variant="outline"
-              onClick={() => setColors(new Array(tokens.length).fill(null))}
+              onClick={() =>
+                setColors(
+                  new Array(tokens.length).fill({ R: 0, G: 0, B: 0, A: 0 }),
+                )
+              }
               disabled={loading}
             >
               Reset All Colors
