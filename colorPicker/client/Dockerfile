@@ -26,4 +26,4 @@ RUN npm run build
 EXPOSE 5173 4173
 
 # Generate .env file and start the application
-CMD ["/bin/bash", "-c", "./scripts/generate_env.sh && npm run dev"]
+CMD ["/bin/bash", "-c", "./scripts/generate_env.sh && npm run preview"]
