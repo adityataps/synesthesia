@@ -16,7 +16,6 @@ import {
   Text,
   Title,
   Center,
-  useMantineColorScheme,
 } from "@mantine/core";
 
 const API_URL = import.meta.env.VITE_API_URL ?? "";
@@ -158,10 +157,7 @@ function App({ toggleColorScheme, colorScheme }: AppProps) {
       const rgbaMatch = color.match(
         /rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*([0-9.]+))?\)/,
       );
-      let R = 255,
-        G = 255,
-        B = 255,
-        A = 0.01; // Default alpha to 0.01 (fully transparent)
+      let R: number, G: number, B: number, A: number;
 
       if (rgbaMatch) {
         R = parseInt(rgbaMatch[1]);
@@ -303,8 +299,8 @@ function App({ toggleColorScheme, colorScheme }: AppProps) {
 
   return (
     <Box p="md">
-      <Stack spacing="lg">
-        <Group position="apart" align="center">
+      <Stack>
+        <Group align="center">
           <Title order={2}>Synesthesia Color Picker</Title>
           <ActionIcon
             variant="outline"
@@ -415,7 +411,7 @@ function App({ toggleColorScheme, colorScheme }: AppProps) {
                     <Text>{currentColor}</Text>
                     {/* Neighboring token color copy buttons */}
                     {selectedTokenIndex !== null && (
-                      <Group position="center" spacing="xs">
+                      <Group>
                         <Text size="xs" fw="bold">
                           Copy from:
                         </Text>
@@ -449,7 +445,7 @@ function App({ toggleColorScheme, colorScheme }: AppProps) {
                         </Button>
                       </Group>
                     )}
-                    <Group position="right" mt="xs">
+                    <Group mt="xs">
                       <Button
                         size="xs"
                         variant="outline"
@@ -494,7 +490,7 @@ function App({ toggleColorScheme, colorScheme }: AppProps) {
           </Flex>
         </Paper>
 
-        <Group position="apart" justify="center" mt="md">
+        <Group justify="center" mt="md">
           <Group>
             <Button color="blue" onClick={fetchNewPhrase} loading={loading}>
               Skip to Next Phrase

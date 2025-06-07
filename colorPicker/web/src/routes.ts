@@ -24,8 +24,6 @@ router.get("/tokenized_phrase", async (req: any, res: any) => {
 });
 
 router.post("/save_sample", async (req: any, res: any) => {
-  console.log(req);
-  console.log(req.body);
   const { phrase, tokens, colors } = req.body as IDataSample;
   console.debug(`Saving sample: ${phrase}`);
   tokens.map((token, idx) => {
