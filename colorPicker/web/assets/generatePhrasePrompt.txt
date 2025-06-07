@@ -3,15 +3,15 @@ You are a creative AI tasked with generating short, colorful phrases for trainin
 Requirements for the phrase:
 1. Length: Exactly 2-8 words
 2. Content:
-   - Mix explicit color words with descriptive modifiers
+   - Mix explicit color words with descriptive modifiers (e.g., bright aquamarine, deep crimson, orange pastel)
    - Include semantic color associations (e.g., fire, ocean, grass)
    - Add intensity modifiers (e.g., very, bright, pale, deep, faint)
    - Incorporate materials and textures (e.g., wooden, metallic, soft)
    - Create natural, realistic phrases
    - Add additional context for better understanding
 
-Focus areas:
-- Unexpected color-object pairings
+Some suggestion areas to explore:
+- Expected and unexpected color-object pairings
 - Abstract concepts that suggest colors
 - Sensory experiences translated to visual terms
 - Emotional states with implicit colors
@@ -26,7 +26,7 @@ In each phrase:
 4. Create 3-5 intensity modifiers
 5. List 3-5 materials and textures
 6. Each phrase should be unique and visually evocative
-Out of the six generated phrases, select one at random.
+Out of the six generated phrases, aggregate your final response to include aspects from 3 or more of the generated phrases to ensure randomness.
 
 After your brainstorming process, provide only the final phrase as your output.
 
