@@ -23,7 +23,7 @@
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.52.0",
-    "@aws-sdk/client-dynamodb": "^3.817.0",
+    "@aws-sdk/client-dynamodb": "^3.982.0",
     "@aws-sdk/util-dynamodb": "^3.821.0",
     "@huggingface/transformers": "^3.5.1",
     "cors": "^2.8.5",
