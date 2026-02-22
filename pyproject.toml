@@ -1,6 +1,16 @@
 [project]
-name = "synesthesia"
+name = "synesthesia-visual-annotator"
 version = "0.1.0"
-description = "Add your description here"
-requires-python = ">=3.12"
-dependencies = []
+description = "Training dataset builder for Synesthesia — annotate text tokens with visual attributes"
+requires-python = ">=3.11"
+dependencies = [
+    "streamlit>=1.42.0",
+    "anthropic>=0.52.0",
+    "transformers>=4.50.0",
+    "google-cloud-firestore>=2.20.0",
+    "python-dotenv>=1.0.0",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
